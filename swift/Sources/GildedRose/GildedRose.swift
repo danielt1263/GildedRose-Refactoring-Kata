@@ -83,8 +83,11 @@ func updatedSellIn(name: String, sellIn: Int) -> Int {
 }
 
 func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
-    if name == "Aged Brie" && quality < 51 {
+    if name == "Aged Brie" && sellIn < 1 && quality < 51 {
         return min(quality + 2, 50)
+    }
+    if name == "Aged Brie" && sellIn > 0 {
+        return quality + 1
     }
     if name == "Aged Brie" && quality > 50 || quality < 1 {
         return quality
