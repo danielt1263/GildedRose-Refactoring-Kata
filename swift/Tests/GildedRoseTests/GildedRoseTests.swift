@@ -3,39 +3,33 @@ import XCTest
 
 class GildedRoseTests: XCTestCase {
     func testProperties() {
-        for _ in (0 ..< 100000) {
-            propertyTest()
+        propertyTest(refItems: [])
+        for name in String.names {
+            for sellIn in Int.sellIns {
+                for quality in Int.qualities {
+                    let refItems = [Item(name: name, sellIn: sellIn, quality: quality)]
+                    propertyTest(refItems: refItems)
+                }
+            }
         }
     }
 
-    func propertyTest() {
-        let refItems = Array.items.randomElement()!
+    func propertyTest(refItems: [Item]) {
         let sutItems = refItems.map { Item(name: $0.name, sellIn: $0.sellIn, quality: $0.quality) }
 
+        print("🟢", refItems)
         let ref = GildedRose(items: refItems)
         ref.updateQuality()
+        print("🟣", ref.items)
 
         let sut = GildedRoseʹ(items: sutItems)
         sut.updateQuality()
 
-        XCTAssertEqual(sut.items.count, ref.items.count)
-        XCTAssertEqual(sut.items.map(\.name), ref.items.map(\.name))
-        XCTAssertEqual(sut.items.map(\.sellIn), ref.items.map(\.sellIn))
-        XCTAssertEqual(sut.items.map(\.quality), ref.items.map(\.quality))
+        assert(sut.items.count == ref.items.count)
+        assert(sut.items.map(\.name) == ref.items.map(\.name))
+        assert(sut.items.map(\.sellIn) == ref.items.map(\.sellIn))
+        assert(sut.items.map(\.quality) == ref.items.map(\.quality))
     }
-}
-
-extension Array where Element == Item {
-    static let items = [
-        [],
-        [
-            Item(name: String.names.randomElement()!, sellIn: Int.sellIns.randomElement()!, quality: Int.qualities.randomElement()!)
-        ],
-        [
-            Item(name: String.names.randomElement()!, sellIn: Int.sellIns.randomElement()!, quality: Int.qualities.randomElement()!),
-            Item(name: String.names.randomElement()!, sellIn: Int.sellIns.randomElement()!, quality: Int.qualities.randomElement()!)
-        ],
-    ]
 }
 
 extension String {
