@@ -1,13 +1,16 @@
 public class GildedRose {
     var items: [Item]
-
+    private let updatedSellIns: [String: (Int) -> Int]
     public init(items: [Item]) {
         self.items = items
+        updatedSellIns = [
+            "Sulfuras, Hand of Ragnaros": { $0 }
+        ]
     }
 
     public func updateQuality() {
         for each in items {
-            let sellIn = updatedSellIn(name: each.name, sellIn: each.sellIn)
+            let sellIn = (updatedSellIns[each.name] ?? updatedSellIn)(each.sellIn)
             let quality = updatedQuality(name: each.name, sellIn: each.sellIn, quality: each.quality)
             each.sellIn = sellIn
             each.quality = quality
@@ -15,11 +18,8 @@ public class GildedRose {
     }
 }
 
-func updatedSellIn(name: String, sellIn: Int) -> Int {
-    guard name != "Sulfuras, Hand of Ragnaros" else {
-        return sellIn
-    }
-    return sellIn - 1
+func updatedSellIn(sellIn: Int) -> Int {
+    sellIn - 1
 }
 
 func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
