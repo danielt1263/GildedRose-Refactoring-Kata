@@ -94,7 +94,13 @@ func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
     case "Backstage passes to a TAFKAL80ETC concert":
         guard sellIn > 0 else { return 0 }
         guard quality <= 50 else { return quality }
-        return min(quality + 3, 50)
+        if sellIn > 5 {
+            return quality + 2
+        } else if sellIn > 0 {
+            return min(quality + 3, 50)
+        } else {
+            return quality + 2
+        }
     default:
         guard quality > 0 else { return quality }
         if sellIn > 0 {
