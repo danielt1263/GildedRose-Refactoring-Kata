@@ -100,6 +100,13 @@ class GildedRoseTests: XCTestCase {
         sut.updateQuality()
         XCTAssertEqual(sut.items.map(\.quality), [Int.min + 1])
     }
+
+    func test_brie_quality_max_50_sellIn_over_0() {
+        let items = [Item(name: "Aged Brie", sellIn: 1, quality: 50)]
+        let sut = GildedRoseʹ(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [50])
+    }
 }
 
 extension String {
