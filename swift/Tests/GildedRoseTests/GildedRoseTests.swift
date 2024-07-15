@@ -142,6 +142,13 @@ class GildedRoseTests: XCTestCase {
         sut.updateQuality()
         XCTAssertEqual(sut.items.map(\.quality), [0])
     }
+
+    func test_pass_sellIn_less_than_0_always_drops_quaility() {
+        let items = [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: Int.min + 1, quality: 51)]
+        let sut = GildedRoseʹ(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [0])
+    }
 }
 
 extension String {
