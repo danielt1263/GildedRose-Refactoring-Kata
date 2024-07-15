@@ -83,6 +83,6 @@ func updatedSellIn(name: String, sellIn: Int) -> Int {
 }
 
 func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
-    guard quality > Int.min else { return quality }
+    guard quality > 0 else { return quality }
     return quality - 1
 }
