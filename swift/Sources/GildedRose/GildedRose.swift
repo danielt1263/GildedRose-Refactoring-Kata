@@ -74,5 +74,8 @@ public class GildedRoseʹ {
 }
 
 func updatedSellIn(name: String, sellIn: Int) -> Int {
-    sellIn - 1
+    guard name != "Sulfuras, Hand of Ragnaros" else {
+        return sellIn
+    }
+    return sellIn - 1
 }
