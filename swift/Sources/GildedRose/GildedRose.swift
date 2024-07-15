@@ -94,6 +94,8 @@ func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
     case "Backstage passes to a TAFKAL80ETC concert":
         if sellIn > 0 {
             return quality + 3
+        } else if sellIn == 0 {
+            return quality + 1
         } else {
             return 0
         }
