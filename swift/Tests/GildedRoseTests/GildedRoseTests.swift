@@ -177,6 +177,13 @@ class GildedRoseTests: XCTestCase {
         sut.updateQuality()
         XCTAssertEqual(sut.items.map(\.quality), [50])
     }
+
+    func test_sulfuras_quality_unchanged() {
+        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: Int.min + 1, quality: 1)]
+        let sut = GildedRoseʹ(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [1])
+    }
 }
 
 extension String {

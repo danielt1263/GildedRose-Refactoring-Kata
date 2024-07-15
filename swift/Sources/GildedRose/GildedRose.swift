@@ -103,6 +103,8 @@ func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
         } else {
             return quality + 2
         }
+    case "Sulfuras, Hand of Ragnaros":
+        return quality
     default:
         guard quality > 0 else { return quality }
         if sellIn > 0 {
