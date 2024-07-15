@@ -28,7 +28,7 @@ class GildedRoseTests: XCTestCase {
         assert(sut.items.count == ref.items.count)
         assert(sut.items.map(\.name) == ref.items.map(\.name))
         assert(sut.items.map(\.sellIn) == ref.items.map(\.sellIn))
-        //assert(sut.items.map(\.quality) == ref.items.map(\.quality))
+        assert(sut.items.map(\.quality) == ref.items.map(\.quality))
     }
 
     func test_decrement_sellIn() {
@@ -43,6 +43,13 @@ class GildedRoseTests: XCTestCase {
         let sut = GildedRoseʹ(items: items)
         sut.updateQuality()
         XCTAssertEqual(sut.items.map(\.sellIn), [Int.min + 1])
+    }
+
+    func test_decrement_quality() {
+        let items = [Item(name: "", sellIn: Int.min + 1, quality: 1)]
+        let sut = GildedRoseʹ(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [0])
     }
 }
 

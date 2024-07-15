@@ -68,7 +68,9 @@ public class GildedRoseʹ {
     public func updateQuality() {
         for each in items {
             let sellIn = updatedSellIn(name: each.name, sellIn: each.sellIn)
+            let quality = updatedQuality(name: each.name, sellIn: each.sellIn, quality: each.quality)
             each.sellIn = sellIn
+            each.quality = quality
         }
     }
 }
@@ -78,4 +80,9 @@ func updatedSellIn(name: String, sellIn: Int) -> Int {
         return sellIn
     }
     return sellIn - 1
+}
+
+func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
+    guard quality > Int.min else { return quality }
+    return quality - 1
 }
