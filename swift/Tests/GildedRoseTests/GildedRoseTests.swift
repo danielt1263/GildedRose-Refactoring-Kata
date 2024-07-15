@@ -155,6 +155,41 @@ class GildedRoseTests: XCTestCase {
         sut.updateQuality()
         XCTAssertEqual(sut.items.map(\.quality), [1])
     }
+
+    func test_conjured_decrement_quality() {
+        let items = [Item(name: "Conjured", sellIn: Int.min + 1, quality: 1)]
+        let sut = GildedRose(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [0])
+    }
+
+    func test_conjured_only_decrement_quality_if_greater_than_0() {
+        let items = [Item(name: "Conjured", sellIn: Int.min + 1, quality: -1)]
+        let sut = GildedRose(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [-1])
+    }
+
+    func test_conjured_decrement_quality_by_2_or_to_0() {
+        let items = [Item(name: "Conjured", sellIn: Int.min + 1, quality: 49)]
+        let sut = GildedRose(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [45])
+    }
+
+    func test_conjured_decrement_quality_by_1_if_sellIn_greater_than_0() {
+        let items = [Item(name: "Conjured", sellIn: 1, quality: 49)]
+        let sut = GildedRose(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [47])
+    }
+
+    func test_conjured_dont_decrement_below_0() {
+        let items = [Item(name: "Conjured", sellIn: 1, quality: 1)]
+        let sut = GildedRose(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.quality), [0])
+    }
 }
 
 extension String {

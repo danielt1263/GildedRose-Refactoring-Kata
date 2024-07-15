@@ -11,7 +11,8 @@ public class GildedRose {
         updatedQualities = [
             "Aged Brie": updatedAgedBrieQuality,
             "Backstage passes to a TAFKAL80ETC concert": updatedPassesQuality,
-            "Sulfuras, Hand of Ragnaros": { $1 }
+            "Conjured": updatedConjuredQuality,
+            "Sulfuras, Hand of Ragnaros": { $1 },
         ]
     }
 
@@ -38,12 +39,22 @@ func updatedQuality(sellIn: Int, quality: Int) -> Int {
     }
 }
 
+// custom qualities
 func updatedAgedBrieQuality(sellIn: Int, quality: Int) -> Int {
     guard quality < 50 else { return quality }
     if sellIn > 0 {
         return quality + 1
     } else {
         return min(quality + 2, 50)
+    }
+}
+
+func updatedConjuredQuality(sellIn: Int, quality: Int) -> Int {
+    guard quality > 0 else { return quality }
+    if sellIn > 0 {
+        return max(quality - 2, 0)
+    } else {
+        return max(quality - 4, 0)
     }
 }
 
