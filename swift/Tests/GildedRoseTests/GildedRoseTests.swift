@@ -30,6 +30,13 @@ class GildedRoseTests: XCTestCase {
         assert(sut.items.map(\.sellIn) == ref.items.map(\.sellIn))
         assert(sut.items.map(\.quality) == ref.items.map(\.quality))
     }
+
+    func test_decrement_sellIn() {
+        let items = [Item(name: "", sellIn: Int.min + 1, quality: Int.min)]
+        let sut = GildedRoseʹ(items: items)
+        sut.updateQuality()
+        XCTAssertEqual(sut.items.map(\.sellIn), [Int.min])
+    }
 }
 
 extension String {

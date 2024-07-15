@@ -66,5 +66,13 @@ public class GildedRoseʹ {
     }
 
     public func updateQuality() {
+        for each in items {
+            let sellIn = updatedSellIn(name: each.name, sellIn: each.sellIn)
+            each.sellIn = sellIn
+        }
     }
+}
+
+func updatedSellIn(name: String, sellIn: Int) -> Int {
+    sellIn - 1
 }
