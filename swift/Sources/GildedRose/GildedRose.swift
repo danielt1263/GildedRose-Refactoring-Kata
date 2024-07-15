@@ -84,5 +84,5 @@ func updatedSellIn(name: String, sellIn: Int) -> Int {
 
 func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
     guard quality > 0 else { return quality }
-    return quality - 1
+    return max(quality - 2, 0)
 }
