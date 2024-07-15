@@ -95,7 +95,7 @@ func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
         guard sellIn > 0 else { return 0 }
         guard quality <= 50 else { return quality }
         if sellIn > 5 {
-            return quality + 2
+            return min(quality + 2, 50)
         } else if sellIn > 0 {
             return min(quality + 3, 50)
         } else {
