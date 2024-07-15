@@ -10,7 +10,8 @@ public class GildedRose {
         ]
         updatedQualities = [
             "Aged Brie": updatedAgedBrieQuality,
-            "Backstage passes to a TAFKAL80ETC concert": updatedPassesQuality
+            "Backstage passes to a TAFKAL80ETC concert": updatedPassesQuality,
+            "Sulfuras, Hand of Ragnaros": { $1 }
         ]
     }
 
@@ -53,8 +54,6 @@ func updatedPassesQuality(sellIn: Int, quality: Int) -> Int {
 
 func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
     switch name {
-    case "Sulfuras, Hand of Ragnaros":
-        return quality
     default:
         guard quality > 0 else { return quality }
         if sellIn > 0 {
