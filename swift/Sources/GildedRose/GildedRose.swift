@@ -11,7 +11,7 @@ public class GildedRose {
         updatedQualities = [
             "Aged Brie": updatedAgedBrieQuality,
             "Backstage passes to a TAFKAL80ETC concert": updatedPassesQuality,
-            "Conjured": updatedConjuredQuality,
+            "Conjured": updatedQuality(byFactor: 2),
             "Sulfuras, Hand of Ragnaros": { $1 },
         ]
     }
@@ -19,7 +19,7 @@ public class GildedRose {
     public func updateQuality() {
         for each in items {
             let sellIn = (updatedSellIns[each.name] ?? updatedSellIn)(each.sellIn)
-            let quality = (updatedQualities[each.name] ?? updatedQuality)(each.sellIn, each.quality)
+            let quality = (updatedQualities[each.name] ?? updatedQuality(byFactor: 1))(each.sellIn, each.quality)
             each.sellIn = sellIn
             each.quality = quality
         }
@@ -30,12 +30,14 @@ func updatedSellIn(sellIn: Int) -> Int {
     sellIn - 1
 }
 
-func updatedQuality(sellIn: Int, quality: Int) -> Int {
-    guard quality > 0 else { return quality }
-    if sellIn > 0 {
-        return quality - 1
-    } else {
-        return max(quality - 2, 0)
+func updatedQuality(byFactor factor: Int) -> (Int, Int) -> Int {
+    { sellIn, quality in
+        guard quality > 0 else { return quality }
+        if sellIn > 0 {
+            return max(quality - 1 * factor, 0)
+        } else {
+            return max(quality - 2 * factor, 0)
+        }
     }
 }
 
@@ -46,15 +48,6 @@ func updatedAgedBrieQuality(sellIn: Int, quality: Int) -> Int {
         return quality + 1
     } else {
         return min(quality + 2, 50)
-    }
-}
-
-func updatedConjuredQuality(sellIn: Int, quality: Int) -> Int {
-    guard quality > 0 else { return quality }
-    if sellIn > 0 {
-        return max(quality - 2, 0)
-    } else {
-        return max(quality - 4, 0)
     }
 }
 
