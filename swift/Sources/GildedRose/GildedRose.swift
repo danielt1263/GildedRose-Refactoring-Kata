@@ -83,6 +83,9 @@ func updatedSellIn(name: String, sellIn: Int) -> Int {
 }
 
 func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
+    if name == "Aged Brie" {
+        return quality + 2
+    }
     guard quality > 0 else { return quality }
     if sellIn > 0 {
         return quality - 1
