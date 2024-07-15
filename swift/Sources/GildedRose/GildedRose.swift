@@ -18,7 +18,7 @@ public class GildedRose {
     public func updateQuality() {
         for each in items {
             let sellIn = (updatedSellIns[each.name] ?? updatedSellIn)(each.sellIn)
-            let quality = (updatedQualities[each.name] ?? { updatedQuality(name: each.name, sellIn: $0, quality: $1) })(each.sellIn, each.quality)
+            let quality = (updatedQualities[each.name] ?? updatedQuality)(each.sellIn, each.quality)
             each.sellIn = sellIn
             each.quality = quality
         }
@@ -27,6 +27,15 @@ public class GildedRose {
 
 func updatedSellIn(sellIn: Int) -> Int {
     sellIn - 1
+}
+
+func updatedQuality(sellIn: Int, quality: Int) -> Int {
+    guard quality > 0 else { return quality }
+    if sellIn > 0 {
+        return quality - 1
+    } else {
+        return max(quality - 2, 0)
+    }
 }
 
 func updatedAgedBrieQuality(sellIn: Int, quality: Int) -> Int {
@@ -49,17 +58,5 @@ func updatedPassesQuality(sellIn: Int, quality: Int) -> Int {
         return min(quality + 3, 50)
     } else {
         return quality + 2
-    }
-}
-
-func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
-    switch name {
-    default:
-        guard quality > 0 else { return quality }
-        if sellIn > 0 {
-            return quality - 1
-        } else {
-            return max(quality - 2, 0)
-        }
     }
 }
