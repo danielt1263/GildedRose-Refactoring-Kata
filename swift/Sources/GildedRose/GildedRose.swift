@@ -9,7 +9,8 @@ public class GildedRose {
             "Sulfuras, Hand of Ragnaros": { $0 }
         ]
         updatedQualities = [
-            "Aged Brie": updatedAgedBrieQuality
+            "Aged Brie": updatedAgedBrieQuality,
+            "Backstage passes to a TAFKAL80ETC concert": updatedPassesQuality
         ]
     }
 
@@ -36,20 +37,22 @@ func updatedAgedBrieQuality(sellIn: Int, quality: Int) -> Int {
     }
 }
 
+func updatedPassesQuality(sellIn: Int, quality: Int) -> Int {
+    guard sellIn > 0 else { return 0 }
+    guard quality <= 50 else { return quality }
+    if sellIn > 10 {
+        return min(quality + 1, 50)
+    } else if sellIn > 5 {
+        return min(quality + 2, 50)
+    } else if sellIn > 0 {
+        return min(quality + 3, 50)
+    } else {
+        return quality + 2
+    }
+}
+
 func updatedQuality(name: String, sellIn: Int, quality: Int) -> Int {
     switch name {
-    case "Backstage passes to a TAFKAL80ETC concert":
-        guard sellIn > 0 else { return 0 }
-        guard quality <= 50 else { return quality }
-        if sellIn > 10 {
-            return min(quality + 1, 50)
-        } else if sellIn > 5 {
-            return min(quality + 2, 50)
-        } else if sellIn > 0 {
-            return min(quality + 3, 50)
-        } else {
-            return quality + 2
-        }
     case "Sulfuras, Hand of Ragnaros":
         return quality
     default:
